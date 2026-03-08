@@ -12,6 +12,10 @@ jobs:
   # testing app
   Testing:
 
+    defaults:
+      run:
+        working-directory: ./cart
+
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +30,10 @@ jobs:
         run: npm run test
   
   Logging:
+  
+    defaults:
+      run:
+        working-directory: ./cart
 
     runs-on: ubuntu-latest
     needs:
@@ -42,45 +50,45 @@ jobs:
       - name: Starting The App
         run: npm run start
   
-  Building_installing_docker_image:
+  # Building_installing_docker_image:
 
-    runs-on: ubuntu-latest
-    needs:
-      - Logging
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - Logging
     
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v5
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v5
       
-      - name: Installing Docker
-        run: |
-          sudo apt update -y
-          sudo apt install ca-certificates curl
-          sudo install -m 0755 -d /etc/apt/keyrings
-          sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-          sudo chmod a+r /etc/apt/keyrings/docker.asc
+  #     - name: Installing Docker
+  #       run: |
+  #         sudo apt update -y
+  #         sudo apt install ca-certificates curl
+  #         sudo install -m 0755 -d /etc/apt/keyrings
+  #         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  #         sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-          sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
-          Types: deb
-          URIs: https://download.docker.com/linux/ubuntu
-          Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
-          Components: stable
-          Signed-By: /etc/apt/keyrings/docker.asc
-          EOF
+  #         sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+  #         Types: deb
+  #         URIs: https://download.docker.com/linux/ubuntu
+  #         Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+  #         Components: stable
+  #         Signed-By: /etc/apt/keyrings/docker.asc
+  #         EOF
 
-          sudo apt update -y
+  #         sudo apt update -y
       
-      - name: Installing docker packages
-        run: sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  #     - name: Installing docker packages
+  #       run: sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-      - name: Running The docker compose for cart Service
-        run: docker compose up --no-deps cart --build
+  #     - name: Running The docker compose for cart Service
+  #       run: docker compose up --no-deps cart --build
       
-      - name: Login into Docker Hub
-        run:  echo "${{ secrets.DOCKER_HUB_REPO_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+  #     - name: Login into Docker Hub
+  #       run:  echo "${{ secrets.DOCKER_HUB_REPO_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
       
-      - name: Pushing to The docker Hub
-        run: docker compose push pradeep3014/backend_micro_github_actions_1:v1
+  #     - name: Pushing to The docker Hub
+  #       run: docker compose push pradeep3014/backend_micro_github_actions_1:v1
 
               
               
