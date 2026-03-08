@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+
     paths:
+    
       - './.github/workflows/services_push_deploy.yaml'
-      - './*.yaml'
+      - './docker-compose.yaml'
 
 jobs:
   
