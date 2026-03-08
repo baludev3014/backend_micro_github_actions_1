@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  auth:
+    build: ./auth
+  
+    container_name: auth
+
+  products:
+    build: ./product
+    
+    container_name: products
+  
+  cart:
+    build: ./cart
+  
+    container_name: cart
+
+  payments:
+    build: ./payments
+    
+    container_name: payments
+
+
+  

@@ -1,0 +1,14 @@
+{
+  "name": "product",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth.js",
+  "scripts": {
+    "test": "node ./tests/index.test.js",
+    "start" : "node products.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
