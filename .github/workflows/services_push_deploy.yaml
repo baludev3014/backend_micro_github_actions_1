@@ -6,10 +6,7 @@ on:
       - main
 
     paths:
-    
-      - './.github/workflows/services_push_deploy.yaml'
-      - './docker-compose.yaml'
-
+      - '**'
 jobs:
   
   # testing app
